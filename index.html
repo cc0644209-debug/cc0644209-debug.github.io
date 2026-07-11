@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陈雨芯 · 视觉传达设计师</title>
+<style>
+/* 自托管字体：不依赖 Google Fonts，国内网络也能正常加载 */
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-300-normal.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-400-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-latin-500-italic.woff2') format('woff2');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter-latin-300-normal.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Serif SC';src:url('fonts/noto-serif-sc-chinese-simplified-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans SC';src:url('fonts/noto-sans-sc-chinese-simplified-300-normal.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans SC';src:url('fonts/noto-sans-sc-chinese-simplified-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Noto Sans SC';src:url('fonts/noto-sans-sc-chinese-simplified-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+</style>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F4F4F2;
+  --white:#FFFFFF;
+  --black:#0A0A0A;
+  --gray:#6B6B6B;
+  --line:#E2E2E0;
+  --green:#2D4A3E;
+  --green2:#3D6353;
+  --red:#B02030;
+  --gold:#C8960A;
+  --yellow-modal:#FAFAE8;
+  --radius-card:14px;
+  --radius-nav:20px;
+  --tr:.45s cubic-bezier(.25,.46,.45,.94);
+  --font-display:'Fraunces','Noto Serif SC',serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans SC','PingFang SC',sans-serif;background:var(--bg);color:var(--black);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;object-fit:cover}
+
+/* ── NAV ── */
+.nav-wrap{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:100;width:calc(100% - 48px);max-width:1100px;
+}
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;height:52px;
+  background:rgba(244,244,242,0.55);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,0.55);
+  border-radius:var(--radius-nav);
+  box-shadow:0 2px 20px rgba(0,0,0,0.06);
+  transition:background .3s;
+}
+nav.scrolled{background:rgba(244,244,242,0.82)}
+.nav-logo{
+  font-size:15px;font-weight:500;letter-spacing:.01em;
+  display:flex;flex-direction:column;line-height:1.1;
+}
+.nav-logo-en{font-size:10px;font-weight:300;color:var(--gray);letter-spacing:.08em}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:13px;color:var(--gray);letter-spacing:.02em;transition:color .2s}
+.nav-links a:hover{color:var(--black)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.lang-btn{
+  font-size:11px;letter-spacing:.1em;padding:5px 14px;
+  border:1px solid var(--line);border-radius:20px;
+  background:transparent;cursor:pointer;color:var(--gray);
+  transition:all .2s;
+}
+.lang-btn:hover{border-color:var(--green);color:var(--green)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;padding:120px 5vw 80px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:48px;align-items:center;
+  position:relative;overflow:hidden;
+}
+/* subtle bg texture */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 70% at 70% 50%,rgba(45,74,62,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-left{position:relative;z-index:1}
+.hero-eyebrow{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gray);margin-bottom:28px;
+  display:flex;align-items:center;gap:12px;
+  opacity:0;animation:eyebrowIn .6s .1s forwards;
+}
+.hero-eyebrow::before{content:'';width:0;height:1px;background:var(--gray);animation:lineDraw .5s .3s cubic-bezier(.65,0,.35,1) forwards}
+.hero-name-block{
+  margin-bottom:36px;
+}
+.hero-name-zh{
+  font-family:var(--font-display);
+  font-size:clamp(56px,7vw,88px);font-weight:400;
+  letter-spacing:.06em;line-height:1;
+  display:flex;gap:.12em;
+}
+.hero-name-zh span{display:inline-block;transition:color .3s}
+.hero-name-zh span:nth-child(2){color:var(--green)}
+.hero-name-en{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:15px;font-weight:400;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gray);margin-top:12px;
+  opacity:0;animation:fu .7s .78s forwards;
+}
+.hero-slogan{
+  font-size:clamp(14px,1.6vw,16px);font-weight:300;
+  color:var(--gray);line-height:1.8;max-width:400px;
+  margin-bottom:48px;
+  opacity:0;transform:translateY(16px);animation:fu .8s .92s forwards;
+}
+.hero-slogan em{font-style:normal;color:var(--black);font-weight:400}
+.hero-slogan .sub{
+  display:block;font-size:12px;letter-spacing:.06em;
+  margin-top:8px;color:#aaa;
+}
+.hero-cta{
+  display:flex;gap:16px;flex-wrap:wrap;
+  opacity:0;transform:translateY(16px);animation:fu .8s 1.08s forwards;
+}
+.btn-primary{
+  font-size:13px;letter-spacing:.04em;
+  padding:12px 28px;background:var(--black);color:#fff;
+  border-radius:8px;transition:background .2s,transform .2s;border:none;cursor:pointer;
+}
+.btn-primary:hover{background:#222;transform:translateY(-1px)}
+.btn-ghost{
+  font-size:13px;letter-spacing:.04em;
+  padding:12px 28px;border:1px solid var(--line);
+  border-radius:8px;color:var(--gray);
+  transition:all .2s;background:transparent;cursor:pointer;
+}
+.btn-ghost:hover{border-color:var(--black);color:var(--black)}
+
+/* hero right: card grid */
+.hero-right{
+  display:grid;grid-template-columns:1fr 1fr;
+  grid-template-rows:auto auto;gap:12px;
+}
+.hero-card{
+  border-radius:var(--radius-card);overflow:hidden;
+  cursor:pointer;position:relative;
+  opacity:0;transform:translateY(28px) scale(.97);
+  animation:cardIn .7s var(--tr) forwards;
+  transition:transform .4s var(--tr),box-shadow .4s;
+}
+.hero-card:first-child{grid-column:1/-1;animation-delay:.55s}
+.hero-card:nth-child(2){animation-delay:.68s}
+.hero-card:nth-child(3){animation-delay:.78s}
+@keyframes cardIn{to{opacity:1;transform:translateY(0) scale(1)}}
+.hero-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+.hero-card-img{
+  aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.hero-card:first-child .hero-card-img{aspect-ratio:21/9}
+.hero-card-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:16px 20px;
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent);
+  color:#fff;
+}
+.hero-card-label-title{font-family:var(--font-display);font-size:16px;font-weight:500;margin-bottom:2px}
+.hero-card-label-sub{font-size:11px;opacity:.7;letter-spacing:.03em}
+
+@keyframes fu{to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION BASE ── */
+section{padding:100px 5vw}
+.section-header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:56px;
+}
+.section-title{font-family:var(--font-display);font-size:clamp(24px,3vw,34px);font-weight:400;letter-spacing:0;font-style:italic}
+.section-label-small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+
+/* ── WORKS ── */
+.works{background:var(--bg)}
+.works-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.work-card{
+  border-radius:var(--radius-card);overflow:hidden;
+  background:var(--white);cursor:pointer;
+  transition:transform .4s var(--tr),box-shadow .4s;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+.work-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(0,0,0,.10)}
+.work-card-img{
+  aspect-ratio:4/3;overflow:hidden;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.work-card-img-inner{
+  width:100%;height:100%;
+  transition:transform .6s var(--tr);
+}
+.work-card:hover .work-card-img-inner{transform:scale(1.05)}
+.work-card-body{padding:20px 22px 22px}
+.work-card-tag{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--green);margin-bottom:8px;
+}
+.work-card-title{font-family:var(--font-display);font-size:19px;font-weight:500;margin-bottom:4px;letter-spacing:0}
+.work-card-sub{font-size:12px;color:var(--gray);line-height:1.5}
+
+/* ── MORE WORKS ── */
+.more{background:var(--white)}
+.more-scroll{
+  display:flex;gap:16px;overflow-x:auto;padding-bottom:16px;
+  scrollbar-width:none;
+}
+.more-scroll::-webkit-scrollbar{display:none}
+.more-item{
+  flex:0 0 240px;border-radius:var(--radius-card);overflow:hidden;
+  background:var(--bg);cursor:pointer;
+  transition:transform .35s var(--tr),box-shadow .35s;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.more-item:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.09)}
+.more-item-img{
+  aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.more-item-body{padding:14px 16px 16px}
+.more-item-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:5px}
+.more-item-title{font-size:13px;font-weight:500;line-height:1.4}
+
+/* ── ABOUT ── */
+.about{background:var(--black);color:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.about-h{font-family:var(--font-display);font-size:clamp(30px,4vw,50px);font-weight:400;letter-spacing:0;line-height:1.2;margin-bottom:32px}
+.about-h em{font-style:italic;font-weight:500;color:var(--green2)}
+.about-p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.85;margin-bottom:14px}
+.info-block{border-top:1px solid rgba(255,255,255,.1);padding:20px 0}
+.info-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px}
+.info-content{font-size:13px;color:rgba(255,255,255,.65);line-height:1.8}
+.dot-item{display:flex;gap:10px;margin-bottom:9px;align-items:flex-start}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--green2);margin-top:7px;flex-shrink:0}
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.skill{font-size:11px;padding:4px 12px;border:1px solid rgba(255,255,255,.12);border-radius:20px;color:rgba(255,255,255,.55)}
+
+/* ── CONTACT ── */
+.contact{
+  background:var(--bg);border-top:1px solid var(--line);
+  padding:80px 5vw;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:40px;
+}
+.contact-h{font-size:clamp(24px,3.5vw,40px);font-weight:300;letter-spacing:-.02em;margin-bottom:12px}
+.contact-p{font-size:13px;color:var(--gray);line-height:1.7}
+.contact-links{display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.cl{font-size:13px;color:var(--gray);display:flex;align-items:center;gap:10px;transition:color .2s}
+.cl:hover{color:var(--green)}
+.cl-icon{
+  width:30px;height:30px;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+  transition:all .2s;
+}
+.cl:hover .cl-icon{border-color:var(--green);background:var(--green);color:#fff}
+
+/* ── FOOTER ── */
+footer{
+  padding:20px 5vw;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--gray);background:var(--bg);
+}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,10,10,.7);
+  opacity:0;pointer-events:none;
+  transition:opacity .35s;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:0;
+}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal-sheet{
+  width:100%;max-width:860px;
+  max-height:90vh;overflow-y:auto;
+  background:var(--yellow-modal);
+  border-radius:20px 20px 0 0;
+  transform:translateY(48px);
+  transition:transform .45s cubic-bezier(.25,.46,.45,.94);
+}
+.modal-overlay.active .modal-sheet{transform:translateY(0)}
+.modal-close{
+  position:sticky;top:0;left:0;right:0;
+  display:flex;justify-content:flex-end;padding:16px 20px 0;
+  z-index:10;
+}
+.modal-close-btn{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.1);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--black);transition:background .2s;
+}
+.modal-close-btn:hover{background:rgba(0,0,0,.18)}
+.modal-hero-img{
+  width:calc(100% - 40px);margin:0 20px 24px;
+  border-radius:12px;overflow:hidden;
+  aspect-ratio:16/7;display:flex;align-items:center;justify-content:center;
+}
+.modal-body{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;padding:0 20px 40px;
+}
+.modal-text{padding-right:32px}
+.modal-tag-sm{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.modal-title-lg{font-family:var(--font-display);font-size:30px;font-weight:500;letter-spacing:0;line-height:1.2;margin-bottom:20px}
+.modal-desc-p{font-size:13px;color:#555;line-height:1.85;margin-bottom:14px}
+.modal-meta-wrap{border-top:1px solid rgba(0,0,0,.1);padding-top:20px;margin-top:8px}
+.modal-meta-row{
+  display:flex;justify-content:space-between;
+  font-size:12px;padding:7px 0;border-bottom:1px solid rgba(0,0,0,.06);
+}
+.modal-meta-k{color:#888}
+.modal-meta-v{font-weight:500}
+.modal-imgs{display:flex;flex-direction:column;gap:10px}
+.img-ph{
+  border-radius:8px;background:rgba(0,0,0,.06);
+  display:flex;align-items:center;justify-content:center;
+  color:#aaa;font-size:11px;letter-spacing:.04em;
+}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s var(--tr),transform .65s var(--tr)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* ── MOTION ENHANCEMENTS ── */
+html{scroll-behavior:smooth}
+
+/* 顶部滚动进度条 */
+.scroll-progress{
+  position:fixed;top:0;left:0;height:2px;width:0%;
+  background:var(--green,#2D4A3E);z-index:300;
+  transition:width .1s linear;
+}
+
+/* 导航链接下划线滑入 */
+.nav-links a{position:relative}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:-4px;
+  width:100%;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;
+  transition:transform .3s var(--tr);
+}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* 所有卡片图片：悬停缓慢放大 */
+.hero-card-img img,.work-card-img img,.more-item-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s var(--tr);
+}
+.hero-card:hover .hero-card-img img,
+.work-card:hover .work-card-img img,
+.more-item:hover .more-item-img img{transform:scale(1.045)}
+
+/* Hero姓名逐字浮现 */
+.hero-name-zh span{
+  opacity:0;filter:blur(10px);transform:translateY(24px) scale(.92);
+  animation:charIn .65s forwards;
+}
+.hero-name-zh span:nth-child(1){animation-delay:.32s}
+.hero-name-zh span:nth-child(2){animation-delay:.44s}
+.hero-name-zh span:nth-child(3){animation-delay:.56s}
+@keyframes charIn{to{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}}
+@keyframes eyebrowIn{to{opacity:1}}
+@keyframes lineDraw{to{width:24px}}
+
+/* 模态框大图画廊（全宽、渐次浮现） */
+.modal-gallery{
+  display:flex;flex-direction:column;gap:14px;
+  padding:0 20px 40px;
+}
+.modal-gallery img{
+  width:100%;border-radius:12px;display:block;
+  opacity:0;transform:translateY(20px);
+  animation:imgUp .7s var(--tr) forwards;
+}
+.gallery-group{margin-bottom:8px}
+.gallery-group-title{
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gray,#888);font-weight:500;
+  margin:36px 0 14px;padding-top:24px;
+  border-top:1px solid rgba(0,0,0,.08);
+}
+.gallery-group:first-child .gallery-group-title{border-top:none;padding-top:0;margin-top:0}
+.gallery-group img{margin-bottom:14px}
+@keyframes imgUp{to{opacity:1;transform:translateY(0)}}
+.modal-hero-img img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  animation:heroZoom 8s ease-out forwards;
+}
+@keyframes heroZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+
+/* 横向滚动区：抓取手势 */
+.more-scroll{cursor:grab}
+.more-scroll.dragging{cursor:grabbing;scroll-behavior:auto}
+.more-scroll.dragging .more-item{pointer-events:none}
+
+/* 按钮按下微缩 */
+.btn-primary:active,.btn-ghost:active{transform:scale(.97)}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:100px;gap:40px}
+  .hero-right{display:none}
+  .works-grid{grid-template-columns:1fr 1fr}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .modal-body{grid-template-columns:1fr}
+  .modal-text{padding-right:0;margin-bottom:24px}
+  .contact{flex-direction:column}
+  .contact-links{align-items:flex-start}
+}
+@media(max-width:600px){
+  .works-grid{grid-template-columns:1fr}
+  .nav-wrap{width:calc(100% - 24px);top:10px}
+  .hero-name-zh{font-size:52px}
+  footer{flex-direction:column;gap:6px;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-wrap">
+<nav id="navbar">
+  <div class="nav-logo">
+    陈雨芯
+    <span class="nav-logo-en">CHEN YUXIN</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#works" data-zh="作品" data-en="Works">作品</a></li>
+    <li><a href="#more" data-zh="更多" data-en="More">更多</a></li>
+    <li><a href="#about" data-zh="关于" data-en="About">关于</a></li>
+    <li><a href="#contact" data-zh="联系" data-en="Contact">联系</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+  </div>
+</nav>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">
+      <span data-zh="视觉传达设计师 · 2026届" data-en="Visual Communication Designer · Class of 2026">视觉传达设计师 · 2026届</span>
+    </p>
+    <div class="hero-name-block">
+      <div class="hero-name-zh">
+        <span>陈</span><span>雨</span><span>芯</span>
+      </div>
+      <div class="hero-name-en">Chen &nbsp; Yu &nbsp; Xin</div>
+    </div>
+    <p class="hero-slogan">
+      <span data-zh="设计是把文化翻译成<em>可被感知</em>的语言" data-en="Design is translating culture into a <em>perceptible</em> language">设计是把文化翻译成<em>可被感知</em>的语言</span>
+      <span class="sub" data-zh="Brand Design · Visual Identity · IP Design" data-en="Brand Design · Visual Identity · IP Design">Brand Design · Visual Identity · IP Design</span>
+    </p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.getElementById('works').scrollIntoView({behavior:'smooth'})" data-zh="查看作品" data-en="View Works">查看作品</button>
+      <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-zh="联系我" data-en="Contact">联系我</button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card" onclick="openModal('duoduohong')">
+      <div class="hero-card-img" style="background:linear-gradient(135deg,#DC3C46,#8B1A25)">
+        <img src="images/duoduohong-05.jpg" alt="朵朵红幼儿园" class="hero-card-img-inner" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="hero-card-label">
+        <div class="hero-card-label-title" data-zh="朵朵红幼儿园" data-en="DuoDuoRed Kindergarten">朵朵红幼儿园</div>
+        <div class="hero-card-label-sub">Brand Identity</div>
+      </div>
+    </div>
+    <div class="hero-card" onclick="openModal('yanchi')">
+      <div class="hero-card-img" style="background:linear-gradient(135deg,#8B1A25,#3D0A12)">
+        <img src="images/yanchi-08.jpg" alt="盐池县" class="hero-card-img-inner" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      </div>
+      <div class="hero-card-label">
+        <div class="hero-card-label-title" data-zh="盐池县" data-en="Yanchi County">盐池县</div>
+        <div class="hero-card-label-sub">City Branding</div>
+      </div>
+    </div>
+    <div class="hero-card" onclick="openModal('suyuanyuan')">
+      <div class="hero-card-img" style="background:linear-gradient(135deg,#2D4A3E,#0F1F18)">
+        <img src="images/suyuanyuan-06.jpg" alt="苏圆圆" class="hero-card-img-inner" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      </div>
+      <div class="hero-card-label">
+        <div class="hero-card-label-title" data-zh="苏圆圆" data-en="Su YuanYuan">苏圆圆</div>
+        <div class="hero-card-label-sub">IP Design · 全国一等奖</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section class="works" id="works">
+  <div class="section-header">
+    <h2 class="section-title" data-zh="精选作品" data-en="Selected Works">精选作品</h2>
+    <span class="section-label-small">03 Projects</span>
+  </div>
+  <div class="works-grid">
+    <div class="work-card reveal" onclick="openModal('duoduohong')">
+      <div class="work-card-img">
+        <img src="images/duoduohong-05.jpg" alt="朵朵红幼儿园" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-tag">Brand Identity</div>
+        <div class="work-card-title" data-zh="朵朵红幼儿园" data-en="DuoDuoRed Kindergarten">朵朵红幼儿园</div>
+        <div class="work-card-sub" data-zh="品牌视觉识别系统" data-en="Brand Visual Identity System">品牌视觉识别系统</div>
+      </div>
+    </div>
+    <div class="work-card reveal d1" onclick="openModal('yanchi')">
+      <div class="work-card-img">
+        <img src="images/yanchi-02.jpg" alt="盐池县" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-tag">City Branding</div>
+        <div class="work-card-title" data-zh="盐池县" data-en="Yanchi County">盐池县</div>
+        <div class="work-card-sub" data-zh="城市品牌视觉识别系统" data-en="City Brand Identity System">城市品牌视觉识别系统</div>
+      </div>
+    </div>
+    <div class="work-card reveal d2" onclick="openModal('suyuanyuan')">
+      <div class="work-card-img">
+        <img src="images/suyuanyuan-01.jpg" alt="苏圆圆" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="work-card-body">
+        <div class="work-card-tag">IP Design · 🏆 全国一等奖</div>
+        <div class="work-card-title" data-zh="苏圆圆" data-en="Su YuanYuan">苏圆圆</div>
+        <div class="work-card-sub" data-zh="苏州城市文化品牌视觉系统" data-en="Suzhou Cultural Brand Visual System">苏州城市文化品牌视觉系统</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MORE WORKS -->
+<section class="more" id="more">
+  <div class="section-header reveal">
+    <h2 class="section-title" data-zh="更多作品" data-en="More Works">更多作品</h2>
+    <span class="section-label-small">07 Projects</span>
+  </div>
+  <div class="more-scroll reveal">
+
+    <div class="more-item" onclick="openMoreModal('changzhi')">
+      <div class="more-item-img" style="background:linear-gradient(135deg,#8B1A25,#5a1015)">
+        <img src="images/changzhi-05.jpg" alt="中国长治 Logo 设计" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="more-item-body">
+        <div class="more-item-tag">Logo Design</div>
+        <div class="more-item-title" data-zh="中国长治 Logo 设计" data-en="China Changzhi Logo">中国长治 Logo 设计</div>
+      </div>
+    </div>
+
+    <div class="more-item" onclick="openMoreModal('picturebook')">
+      <div class="more-item-img" style="background:linear-gradient(135deg,#E8C840,#B09010)">
+        <img src="images/picturebook-01.jpg" alt="谁偷走了我的奶酪" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="more-item-body">
+        <div class="more-item-tag">Picture Book</div>
+        <div class="more-item-title" data-zh="《谁偷走了我的奶酪？》" data-en="Who Stole My Cheese?">《谁偷走了我的奶酪？》</div>
+      </div>
+    </div>
+
+    <div class="more-item" onclick="openMoreModal('ocean')">
+      <div class="more-item-img" style="background:linear-gradient(135deg,#1a4a6a,#0a2a4a)">
+        <img src="images/ocean-01.jpg" alt="海洋" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="more-item-body">
+        <div class="more-item-tag">Illustration</div>
+        <div class="more-item-title" data-zh="《海洋》手绘插画" data-en="Ocean · Illustration">《海洋》手绘插画</div>
+      </div>
+    </div>
+
+    <div class="more-item" onclick="openMoreModal('bazhai')">
+      <div class="more-item-img" style="background:linear-gradient(135deg,#2a4a1a,#1a3010)">
+        <img src="images/bazhai-01.jpg" alt="程阳八寨" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="more-item-body">
+        <div class="more-item-tag">Illustration</div>
+        <div class="more-item-title" data-zh="《程阳八寨》手绘插画" data-en="Chengyang Bazhai">《程阳八寨》手绘插画</div>
+      </div>
+    </div>
+
+    <div class="more-item" onclick="openMoreModal('jingshan')">
+      <div class="more-item-img" style="background:linear-gradient(135deg,#3a2a1a,#5a3a20)">
+        <img src="images/jingshan-01.jpg" alt="径山茶宴" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="more-item-body">
+        <div class="more-item-tag">Infographic</div>
+        <div class="more-item-title" data-zh="《径山茶宴》信息图表" data-en="Jingshan Tea Ceremony">《径山茶宴》信息图表</div>
+      </div>
+    </div>
+
+    <div class="more-item" onclick="openMoreModal('poster1')">
+      <div class="more-item-img" style="background:linear-gradient(135deg,#E86010,#A04010)">
+        <img src="images/kazakh-01.jpg" alt="哈萨克语言" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="more-item-body">
+        <div class="more-item-tag">Creative Poster</div>
+        <div class="more-item-title" data-zh="《哈萨克语言》拼贴海报" data-en="Kazakh Language Poster">《哈萨克语言》拼贴海报</div>
+      </div>
+    </div>
+
+    <div class="more-item" onclick="openMoreModal('poster2')">
+      <div class="more-item-img" style="background:linear-gradient(135deg,#101060,#201080)">
+        <img src="images/qiaoshou-01.jpg" alt="巧手" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="more-item-body">
+        <div class="more-item-tag">Creative Poster</div>
+        <div class="more-item-title" data-zh="《巧手》拼贴海报" data-en="Skillful Hands Poster">《巧手》拼贴海报</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <h2 class="about-h" data-zh="把文化<em>翻译</em>成<br>可被感知的语言" data-en="Translating culture<br>into a <em>perceptible</em> language">把文化<em>翻译</em>成<br>可被感知的语言</h2>
+      <p class="about-p" data-zh="我是陈雨芯，广西外国语学院视觉传达设计专业2026届毕业生。我相信好的品牌设计不是装饰，而是将品牌的核心文化内核转化为受众可以直接感知的视觉语言。" data-en="I'm Chen Yuxin, a 2026 Visual Communication Design graduate from Guangxi University of Foreign Languages. I believe great brand design is not decoration — it's translating a brand's cultural core into visual language audiences can directly perceive.">我是陈雨芯，广西外国语学院视觉传达设计专业2026届毕业生。我相信好的品牌设计不是装饰，而是将品牌的核心文化内核转化为受众可以直接感知的视觉语言。</p>
+      <p class="about-p" data-zh="我的三个深度案例——朵朵红、盐池县、苏圆圆——都在做同一件事：找到一个真实的文化符号，通过设计让它被看见、被记住、被传播。" data-en="My three core projects — DuoDuoRed, Yanchi County, Su YuanYuan — all do the same thing: find a real cultural symbol and make it visible, memorable, and transmissible through design.">我的三个深度案例——朵朵红、盐池县、苏圆圆——都在做同一件事：找到一个真实的文化符号，通过设计让它被看见、被记住、被传播。</p>
+    </div>
+    <div class="reveal d1">
+      <div class="info-block">
+        <div class="info-label" data-zh="教育背景" data-en="Education">教育背景</div>
+        <div class="info-content" data-zh="广西外国语学院 · 视觉传达设计 · 本科 · 2026届" data-en="Guangxi University of Foreign Languages · Visual Communication Design · Bachelor · 2026">广西外国语学院 · 视觉传达设计 · 本科 · 2026届</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label" data-zh="奖项" data-en="Awards">奖项</div>
+        <div class="info-content">
+          <div class="dot-item"><div class="dot"></div><span data-zh="NCDA全国高校未来设计师设计大赛 · 全国一等奖" data-en="NCDA National Design Competition · First Prize (National)">NCDA全国高校未来设计师设计大赛 · 全国一等奖</span></div>
+          <div class="dot-item"><div class="dot"></div><span data-zh="第十三届全国高校未来设计师设计大赛 · 广西赛区一等奖" data-en="13th NCDA · Guangxi Region First Prize">第十三届全国高校未来设计师设计大赛 · 广西赛区一等奖</span></div>
+          <div class="dot-item"><div class="dot"></div><span data-zh="校内三年专业排名前10" data-en="Top 10 in department for 3 years">校内三年专业排名前10</span></div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label" data-zh="工作经历" data-en="Experience">工作经历</div>
+        <div class="info-content">
+          <div class="dot-item"><div class="dot"></div>
+            <span>
+              <strong style="color:#fff" data-zh="宁波中宁化集团 · 视觉设计师" data-en="Ningbo Zhongninghua Group · Visual Designer">宁波中宁化集团 · 视觉设计师</strong>
+              <span style="color:rgba(255,255,255,.35);font-size:12px;display:block">2025.9–2025.12</span>
+              <span style="color:rgba(255,255,255,.5);font-size:12px;margin-top:3px;display:block" data-zh="国内外展会视觉系统设计、产品海报及品牌宣传册" data-en="Exhibition visual systems, product posters and brand brochures">国内外展会视觉系统设计、产品海报及品牌宣传册</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Skills</div>
+        <div class="skills">
+          <span class="skill">Illustrator</span><span class="skill">Photoshop</span>
+          <span class="skill">InDesign</span><span class="skill">After Effects</span>
+          <span class="skill">Midjourney</span><span class="skill">ChatGPT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact" id="contact">
+  <div class="reveal">
+    <h2 class="contact-h" data-zh="一起创造<br>有价值的视觉" data-en="Let's create<br>something meaningful">一起创造<br>有价值的视觉</h2>
+    <p class="contact-p" data-zh="品牌设计 · 视觉识别系统 · IP形象设计" data-en="Brand Design · Visual Identity · IP Design">品牌设计 · 视觉识别系统 · IP形象设计</p>
+  </div>
+  <div class="contact-links reveal d1">
+    <a class="cl" href="mailto:cyx6660502@163.com"><div class="cl-icon">✉</div>cyx6660502@163.com</a>
+    <a class="cl" href="tel:19175117605"><div class="cl-icon">☎</div>191 7511 7605</a>
+    <a class="cl" href="#" target="_blank"><div class="cl-icon">Z</div><span data-zh="站酷主页" data-en="Zcool Portfolio">站酷主页</span></a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 陈雨芯 · Chen Yuxin</span>
+  <span data-zh="设计是把文化翻译成可被感知的语言" data-en="Design is translating culture into a perceptible language">设计是把文化翻译成可被感知的语言</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeOnBg(event)">
+  <div class="modal-sheet" id="modal-sheet">
+    <div class="modal-close">
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// Lang
+let lang='zh';
+function toggleLang(){
+  lang=lang==='zh'?'en':'zh';
+  document.getElementById('langBtn').textContent=lang==='zh'?'EN':'中文';
+  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+  document.querySelectorAll('[data-zh]').forEach(el=>{
+    const v=el.getAttribute('data-'+lang);
+    if(v)el.innerHTML=v;
+  });
+}
+
+// Nav scroll
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',scrollY>60));
+
+// Scroll progress bar
+const prog=document.createElement('div');
+prog.className='scroll-progress';
+document.body.appendChild(prog);
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  prog.style.width=pct+'%';
+},{passive:true});
+
+// Drag-to-scroll for horizontal more-works strip
+document.querySelectorAll('.more-scroll').forEach(el=>{
+  let down=false,startX=0,startL=0,moved=false;
+  el.addEventListener('pointerdown',e=>{down=true;moved=false;startX=e.clientX;startL=el.scrollLeft});
+  window.addEventListener('pointermove',e=>{
+    if(!down)return;
+    const dx=e.clientX-startX;
+    if(Math.abs(dx)>6){moved=true;el.classList.add('dragging')}
+    if(moved)el.scrollLeft=startL-dx;
+  });
+  window.addEventListener('pointerup',()=>{down=false;setTimeout(()=>el.classList.remove('dragging'),50)});
+});
+
+// Reveal
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Data
+const P={
+  duoduohong:{tag:'Brand Identity System',
+    tZh:'朵朵红幼儿园<br>品牌视觉识别系统',tEn:'DuoDuoRed Kindergarten<br>Brand Visual Identity System',
+    dZh:`朵朵红是一所经营十年的县域普惠幼儿园。现状：装修老派，视觉混乱，缺乏品牌识别力。\n\n核心挑战：在有限预算内建立有竞争力的品牌视觉系统，低成本可复用。\n\n标志以"朵"字字形为设计起点，其放射状笔画结构与马樱丹花簇的自然形态高度契合，将花瓣弧线转化为儿童伸展的肢体动态，花蕊转化为头部圆点，形成植物形态与人物形态的双重语义。`,
+    dEn:`DuoDuoRed is a county-level inclusive kindergarten with ten years of operation. Challenge: outdated visual identity, chaotic brand image.\n\nCore strategy: Build a minimal but highly recognizable visual system that is low-cost and replicable.\n\nThe logo starts from the character "朵" (Duo), whose radial stroke structure aligns with Lantana camara flowers. Petal arcs become children's outstretched limbs; stamens become head dots — dual semantics of plant and human form.`,
+    meta:[{kZh:'类型',kEn:'Type',vZh:'幼儿园品牌设计',vEn:'Kindergarten Brand Design'},{kZh:'策略',kEn:'Strategy',vZh:'低成本可复用视觉系统',vEn:'Low-cost replicable system'},{kZh:'参考',kEn:'Reference',vZh:'《视觉锤》· 劳拉·里斯',vEn:'Visual Hammer · Laura Ries'}],
+    bg:'linear-gradient(135deg,#DC3C46,#8B1A25)',bl:'朵朵红',
+    imgs:['images/duoduohong-01.jpg','images/duoduohong-02.jpg','images/duoduohong-03.jpg','images/duoduohong-04.jpg','images/duoduohong-05.jpg'],
+    imgGroups:[
+      {tZh:'标志设计',tEn:'Logo Design',imgs:['images/duoduohong-02.jpg','images/duoduohong-04.jpg']},
+      {tZh:'色彩 · 字体规范',tEn:'Colour & Type System',imgs:['images/duoduohong-03.jpg']},
+      {tZh:'应用延展',tEn:'Applications',imgs:['images/duoduohong-01.jpg','images/duoduohong-05.jpg','images/duoduohong-06.jpg','images/duoduohong-07.jpg','images/duoduohong-08.jpg','images/duoduohong-09.jpg','images/duoduohong-10.jpg','images/duoduohong-11.jpg','images/duoduohong-12.jpg','images/duoduohong-13.jpg']},
+    ]},
+  yanchi:{tag:'City Brand Identity',
+    tZh:'盐池县<br>品牌视觉识别系统',tEn:'Yanchi County<br>Brand Visual Identity System',
+    dZh:`盐池县隶属宁夏回族自治区，拥有真实的旅游资源与历史积淀，但面临人才流失、城市认知度低的现实困境。\n\n标志采用"盐池"字形转化，提取当地城墙建筑的结构特征，以笔直的矢量几何线条重新构建字形。选择字形转化而非图形符号，是因为 logo 需要承担"被认出且被记住"的传播功能。\n\n深红参照故宫红的色彩体系，传递城市的历史底蕴；金色作为辅助色，强化城市的价值感与辨识度。`,
+    dEn:`Yanchi County in Ningxia faces talent drain and low urban recognition despite rich tourism resources and historical heritage.\n\nThe logo transforms the characters "盐池" (Yanchi), extracting structural features of local city wall architecture using straight geometric vector lines.\n\nDeep red references the Palace Museum red, conveying historical depth. Gold as secondary color reinforces the city's prestige and recognition.`,
+    meta:[{kZh:'类型',kEn:'Type',vZh:'城市品牌设计',vEn:'City Brand Design'},{kZh:'策略',kEn:'Strategy',vZh:'字形转化 + 城墙结构',vEn:'Character + Wall Structure'},{kZh:'色彩',kEn:'Colour',vZh:'故宫红 + 金色',vEn:'Palace Red + Gold'}],
+    bg:'linear-gradient(135deg,#8B1A25,#3D0A12)',bl:'盐池',
+    imgs:['images/yanchi-01.jpg','images/yanchi-02.jpg','images/yanchi-03.jpg','images/yanchi-04.jpg','images/yanchi-05.jpg','images/yanchi-06.jpg','images/yanchi-07.jpg'],
+    imgGroups:[
+      {tZh:'标志设计',tEn:'Logo Design',imgs:['images/yanchi-03.jpg','images/yanchi-04.jpg']},
+      {tZh:'应用落地',tEn:'Applications',imgs:['images/yanchi-01.jpg','images/yanchi-02.jpg','images/yanchi-05.jpg','images/yanchi-06.jpg','images/yanchi-07.jpg']},
+    ]},
+  suyuanyuan:{tag:'City Cultural IP Design · National 1st Prize',
+    tZh:'苏圆圆<br>苏州城市文化品牌视觉系统',tEn:'Su YuanYuan<br>Suzhou City Cultural Brand Visual System',
+    dZh:`苏州的文化特质——园林、苏绣、昆曲——分散且抽象，缺乏一个能被快速识别、记住、传播的人格化载体。\n\n第一层（核心识别符号）：头套造型来源于苏州园林屋檐的轮廓特征，是唯一承担"被一眼认出"功能的视觉元素。\n\n第二层（文化纵深符号）：蓝棕色装饰来源于昆曲头饰点翠工艺；服装竹子纹样来源于苏绣工艺，绿白配色延续竹子固有色与汉服传统底色。\n\n第三层（传播策略）：选择女性人格化身份作为载体，解决游客与城市之间的情感连接问题。`,
+    dEn:`Suzhou's cultural identity — classical gardens, Suzhou embroidery, Kunqu Opera — is dispersed and abstract.\n\nLayer 1 (Core identifier): The headdress shape derived from Suzhou garden eaves contours — sole visual element carrying the "recognized at first glance" function.\n\nLayer 2 (Cultural depth): Blue-brown decorations reference Kunqu Opera headdress cloisonné craft; bamboo embroidery from Suzhou silk tradition.\n\nLayer 3 (Communication strategy): Female personified identity bridges the emotional gap between tourists and the city.`,
+    meta:[{kZh:'奖项',kEn:'Award',vZh:'NCDA全国一等奖',vEn:'NCDA National First Prize'},{kZh:'类型',kEn:'Type',vZh:'城市文化IP设计',vEn:'City Cultural IP Design'},{kZh:'受众',kEn:'Audience',vZh:'外地游客 · 文旅传播',vEn:'Tourists · Cultural Tourism'}],
+    bg:'linear-gradient(135deg,#2D4A3E,#0F1F18)',bl:'苏圆圆',
+    imgs:['images/suyuanyuan-01.jpg','images/suyuanyuan-05.jpg','images/suyuanyuan-02.jpg','images/suyuanyuan-03.jpg','images/suyuanyuan-04.jpg'],
+    imgGroups:[
+      {tZh:'设计策略',tEn:'Design Strategy',imgs:['images/suyuanyuan-05.jpg','images/suyuanyuan-02.jpg']},
+      {tZh:'应用延展',tEn:'Applications',imgs:['images/suyuanyuan-01.jpg','images/suyuanyuan-03.jpg','images/suyuanyuan-04.jpg']},
+    ]},
+};
+const M={
+  changzhi:{tag:'Logo Design',tZh:'中国长治 Logo 设计',tEn:'China Changzhi Logo Design',dZh:'以长治城市建筑与文化元素为设计来源，采用矢量几何语言构建标志系统，赋予这座城市现代而有力的视觉形象。',dEn:'Logo system built from Changzhi architectural and cultural elements using vector geometric language, giving the city a modern and powerful visual identity.',meta:[{kZh:'类型',kEn:'Type',vZh:'城市标志设计',vEn:'City Logo Design'}],bg:'linear-gradient(135deg,#8B1A25,#5a1015)',bl:'长治',
+    imgs:['images/changzhi-05.jpg','images/changzhi-01.jpg','images/changzhi-02.jpg','images/changzhi-03.jpg','images/changzhi-04.jpg']},
+  picturebook:{tag:'Picture Book Design',tZh:'《谁偷走了我的奶酪？》绘本设计',tEn:'Who Stole My Cheese? — Picture Book',dZh:'基于同名故事改编的儿童绘本，自主绘制插图并完成整体版式设计，探索儿童友好的叙事视觉语言。',dEn:"Children's picture book adapted from the story, with self-illustrated pages and complete layout design, exploring child-friendly narrative visual language.",meta:[{kZh:'类型',kEn:'Type',vZh:'绘本设计',vEn:'Picture Book Design'}],bg:'linear-gradient(135deg,#E8C840,#B09010)',bl:'绘本',
+    imgs:['images/picturebook-01.jpg','images/picturebook-02.jpg','images/picturebook-03.jpg','images/picturebook-04.jpg','images/picturebook-05.jpg','images/picturebook-06.jpg','images/picturebook-07.jpg','images/picturebook-08.jpg','images/picturebook-09.jpg','images/picturebook-10.jpg','images/picturebook-11.jpg','images/picturebook-12.jpg','images/picturebook-13.jpg','images/picturebook-14.jpg','images/picturebook-15.jpg']},
+  ocean:{tag:'Illustration',tZh:'《海洋》手绘插画',tEn:'Ocean — Illustration',dZh:'《三江故事》系列手绘插画之一，以海洋为主题，探索民族文化与自然生态的视觉叙事。',dEn:'One of the "Sanjiang Stories" series, exploring ethnic culture and natural ecology through ocean-themed illustration.',meta:[{kZh:'系列',kEn:'Series',vZh:'《三江故事》插画系列',vEn:'Sanjiang Stories Series'}],bg:'linear-gradient(135deg,#1a4a6a,#0a2a4a)',bl:'海洋',
+    imgs:['images/ocean-01.jpg']},
+  bazhai:{tag:'Illustration',tZh:'《程阳八寨》手绘插画',tEn:'Chengyang Bazhai — Illustration',dZh:'《鱼枕海湾》系列手绘插画之一，描绘广西程阳八寨的侗族建筑与自然风光。',dEn:'One of the "Yuzhen Bay" series, depicting the Dong ethnic architecture and natural scenery of Chengyang Bazhai, Guangxi.',meta:[{kZh:'系列',kEn:'Series',vZh:'《鱼枕海湾》插画系列',vEn:'Yuzhen Bay Series'}],bg:'linear-gradient(135deg,#2a4a1a,#1a3010)',bl:'程阳',
+    imgs:['images/bazhai-01.jpg']},
+  jingshan:{tag:'Infographic',tZh:'《径山茶宴》信息图表设计',tEn:'Jingshan Tea Ceremony Infographic',dZh:'以长卷形式呈现径山茶宴的历史渊源、礼仪流程与文化内涵，将传统文化以现代信息可视化方式表达。',dEn:'A scroll-format infographic presenting the historical origins, ceremonial process, and cultural significance of the Jingshan Tea Ceremony.',meta:[{kZh:'类型',kEn:'Type',vZh:'长卷信息图表',vEn:'Scroll Infographic'}],bg:'linear-gradient(135deg,#3a2a1a,#5a3a20)',bl:'茶宴',
+    imgs:['images/jingshan-01.jpg']},
+  poster1:{tag:'Creative Poster',tZh:'《哈萨克语言》创意拼贴海报',tEn:'Kazakh Language Collage Poster',dZh:'以哈萨克族文化为主题的实验性拼贴海报，探索民族文化元素与现代平面设计语言的融合。',dEn:'An experimental collage poster themed on Kazakh culture, exploring the fusion of ethnic cultural elements with modern graphic design.',meta:[{kZh:'类型',kEn:'Type',vZh:'城市文化拼贴海报',vEn:'Cultural Collage Poster'}],bg:'linear-gradient(135deg,#E86010,#A04010)',bl:'哈萨克',
+    imgs:['images/kazakh-01.jpg']},
+  poster2:{tag:'Creative Poster',tZh:'《巧手》创意拼贴海报',tEn:'Skillful Hands Collage Poster',dZh:'探索传统手工艺与现代视觉语言结合的实验性平面作品，实验拼贴手法与文字肌理在主题传达中的张力。',dEn:'An experimental graphic work exploring the fusion of traditional craftsmanship with modern visual language through collage and typography.',meta:[{kZh:'类型',kEn:'Type',vZh:'创意实验海报',vEn:'Experimental Poster'}],bg:'linear-gradient(135deg,#101060,#201080)',bl:'巧手',
+    imgs:['images/qiaoshou-01.jpg']},
+};
+
+function buildContent(p){
+  const t=lang==='zh'?p.tZh:p.tEn;
+  const d=(lang==='zh'?p.dZh:p.dEn).split('\n\n').map(s=>`<p class="modal-desc-p">${s}</p>`).join('');
+  const m=p.meta.map(r=>`<div class="modal-meta-row"><span class="modal-meta-k">${lang==='zh'?r.kZh:r.kEn}</span><span class="modal-meta-v">${lang==='zh'?r.vZh:r.vEn}</span></div>`).join('');
+  const imgs=p.imgs||[];
+  const hero=imgs.length
+    ?`<img src="${imgs[0]}" alt="${p.bl}">`
+    :`<span style="font-size:clamp(40px,8vw,100px);color:rgba(255,255,255,.1);font-weight:300;letter-spacing:.08em;">${p.bl}</span>`;
+
+  let galleryHtml='';
+  if(p.imgGroups && p.imgGroups.length){
+    let counter=0;
+    galleryHtml=p.imgGroups.map(g=>{
+      const gt=lang==='zh'?g.tZh:g.tEn;
+      const imgsHtml=g.imgs.map(src=>{
+        const delay=(.1+counter*.1).toFixed(2); counter++;
+        return `<img src="${src}" alt="${gt}" loading="lazy" style="animation-delay:${delay}s">`;
+      }).join('');
+      return `<div class="gallery-group"><div class="gallery-group-title">${gt}</div>${imgsHtml}</div>`;
+    }).join('');
+  } else {
+    const galleryImgs=imgs.length>1?imgs.slice(1):imgs;
+    galleryHtml=galleryImgs.map((src,i)=>`<img src="${src}" alt="${p.bl} ${i+1}" loading="lazy" style="animation-delay:${.15+i*.12}s">`).join('');
+  }
+
+  return `
+    <div class="modal-hero-img" style="background:${p.bg}">${hero}</div>
+    <div class="modal-body">
+      <div class="modal-text">
+        <div class="modal-tag-sm">${p.tag}</div>
+        <h2 class="modal-title-lg">${t}</h2>
+        ${d}
+      </div>
+      <div class="modal-imgs">
+        <div class="modal-meta-wrap" style="border-top:none;margin-top:0;padding-top:0">${m}</div>
+      </div>
+    </div>
+    <div class="modal-gallery">${galleryHtml}</div>`;
+}
+
+function openModal(id){
+  const p=P[id];if(!p)return;
+  document.getElementById('modal-content').innerHTML=buildContent(p);
+  document.getElementById('modal-overlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function openMoreModal(id){
+  const p=M[id];if(!p)return;
+  document.getElementById('modal-content').innerHTML=buildContent(p);
+  document.getElementById('modal-overlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+function closeOnBg(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
